@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "AdminHome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AdminHome</h2>
+@*<div>
+    @Html.BeginForm("AdminHome", "LoginDB", FormMethod.Get)
+    {
+    @if (ViewBag.appCount >= 0)
+    {
+        <script>
+            alert("Applications received");
+        </script>
+    }
+    }
+</div>*@
+
+<div>
+    @Html.ActionLink("Add Job", "Insert_Job_PageLoad", "InsertJobDB")
+</div>
+
+@*@if (ViewBag.appCount >= 0)
+{
+    <script>
+        alert("Applications received");
+    </script>
+}*@
+
+@{ if (Convert.ToUInt32(TempData["appCount"])>= 0)
+    {
+<script>
+    alert("Applications received");
+</script>
+        }
+    }

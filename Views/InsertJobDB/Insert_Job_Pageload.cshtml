@@ -1,0 +1,99 @@
+﻿@model ProjectMVC.Models.InsertJobCls
+@{
+    ViewBag.Title = "Insert_Job_Pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Insert Job Details</h2>
+
+<div>
+    @using (Html.BeginForm("Insert_Job_Click", "InsertJobDB", FormMethod.Post))
+    {
+
+        <div><label>Title : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.jTitle)
+            @Html.ValidationMessageFor(m => m.jTitle)
+        </div>
+
+        <div><label>Description : </label></div>
+        <div>
+            @Html.TextAreaFor(m => m.jDesc)
+            @Html.ValidationMessageFor(m => m.jDesc)
+        </div>
+
+        <div><label>Qualification : </label></div>
+        <div>
+            @foreach (var item in Model.Qlfcn)
+            {
+                <input type="checkbox" value="@item.Value" checked="@item.IsChecked" name="jselectedQlfcn" id="@item.Value" /> @Html.Raw(item.Text)
+
+            }
+        </div>
+
+        <div><label>Skills : </label></div>
+        <div>
+            @foreach (var item in Model.Skills)
+            {
+                <input type="checkbox" value="@item.Value" checked="@item.IsChecked" name="jselectedSkills" id="@item.Value" /> @Html.Raw(item.Text)
+
+            }
+        </div>
+
+        <div><label>State : </label></div>
+        <div>
+            @Html.DropDownList("ddlStateID", new SelectList(ViewBag.selStates, "Value", "Text"), "Select State", new { @class = "form-control", @id = "state-ddl" })
+        </div>
+
+        <div><label>District : </label></div>
+        <div>
+            <select id="district-ddl" class="form-control" name="ddlDistrictID"></select>
+        </div>
+
+        <div><label>Location : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.jLoc)
+            @Html.ValidationMessageFor(m => m.jLoc)
+        </div>
+
+        <div><label>Salary : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.jSal)
+            @Html.ValidationMessageFor(m => m.jSal)
+        </div>
+
+        <div><label>Experience : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.jExp)
+            @Html.ValidationMessageFor(m => m.jExp)
+        </div>
+
+        <div>
+            <input type="submit" value="Insert" />
+            @Html.DisplayFor(m => m.msg)
+        </div>
+    }
+</div>
+
+<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+    $('#district-ddl').append('<option>Select District</option>');
+    $('#state-ddl').change(function () {
+         var stateId = $(this).val();
+         $.ajax({
+             url: '@Url.Action("GetDistricts", "InsertJobDB")',
+             //type: 'GET',
+             data: { stateId: stateId },
+             //dataType: 'json',
+             success: function (data) {
+                 $('#district-ddl').empty();
+                 $('#district-ddl').append('<option>Select District</option>');
+                 $.each(data, function (index, item) {
+                     $('#district-ddl').append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                 });
+             }
+         });
+     });
+</script>
+
+

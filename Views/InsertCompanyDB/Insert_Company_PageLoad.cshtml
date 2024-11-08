@@ -1,0 +1,63 @@
+﻿@model ProjectMVC.Models.InsertCompanyCls
+@{
+    ViewBag.Title = "Insert_Company_PageLoad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Insert Company Details</h2>
+
+<div>
+    @using (Html.BeginForm("Insert_Company_Click", "InsertCompanyDB", FormMethod.Post))
+    {
+        <div><label>Name : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.cName)
+            @Html.ValidationMessageFor(m => m.cName)
+        </div>
+
+        <div><label>Email : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.cEmail)
+            @Html.ValidationMessageFor(m => m.cEmail)
+        </div>
+
+        <div><label>Website : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.cWbste)
+            @Html.ValidationMessageFor(m => m.cWbste)
+        </div>
+
+        <div><label>Phone : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.cPhone)
+            @Html.ValidationMessageFor(m => m.cPhone)
+        </div>
+
+        <div><label>Username : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.cUsrnm)
+            @Html.ValidationMessageFor(m => m.cUsrnm)
+        </div>
+
+        <div><label>Password : </label></div>
+        <div>
+            @Html.PasswordFor(m => m.cPwd)
+            @Html.ValidationMessageFor(m => m.cPwd)
+        </div>
+
+        <div><label>Confirm Password : </label></div>
+        <div>
+            @Html.PasswordFor(m => m.cCnfpwd)
+            @Html.ValidationMessageFor(m => m.cCnfpwd)
+        </div>
+
+        <div>
+            <input type="submit" value="Insert" />
+            @Html.DisplayFor(m => m.msg)
+        </div>
+
+    }
+</div>
+
+
+
+

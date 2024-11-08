@@ -1,0 +1,80 @@
+﻿@model ProjectMVC.Models.JobSearchCls
+@{
+    ViewBag.Title = "ViewJobDetails_PageLoad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Job Details</h2>
+
+<div>
+
+    @*@using (Html.BeginForm("ViewJobDetails_PageLoad", "SearchJob", FormMethod.Get))*@
+    @using (Html.BeginForm("InsertCV_Load", "InsertCV", FormMethod.Post))
+    {
+
+        if (Model != null)
+        {
+            if (Model.selectjob != null && Model.selectjob.Count != 0)
+            {
+                foreach (var item in Model.selectjob)
+                {
+                    <table>
+                        <tr>
+                            <td><label>Company : </label></td>
+                            <td> @Html.DisplayFor(m => @item.jCompName)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Job Title : </label></td>
+                            <td>@Html.DisplayFor(m => @item.jTitle)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Job Description : </label></td>
+                            <td>@Html.DisplayFor(m => @item.jDesc)</td>
+                        </tr>
+                        <tr>
+                            <td><label>State</label></td>
+                            <td>@Html.DisplayFor(m => @item.jStatename)</td>
+                        </tr>
+                        <tr>
+                            <td><label>District</label></td>
+                            <td>@Html.DisplayFor(m => @item.jDistname)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Location</label></td>
+                            <td>@Html.DisplayFor(m => @item.jLocation)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Qualifications Required</label></td>
+                            <td>@Html.DisplayFor(m => @item.jQual)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Skills Required</label></td>
+                            <td>@Html.DisplayFor(m => @item.jLocation)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Date of Posting</label></td>
+                            <td>@Html.DisplayFor(m => @item.jDOP)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Salary</label></td>
+                            <td>@Html.DisplayFor(m => @item.jSalary)</td>
+                        </tr>
+                        <tr>
+                            <td><label>Experience Required</label></td>
+                            <td>@Html.DisplayFor(m => @item.jExp)</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <div>
+                        @Html.ActionLink("Apply Now", "InsertCV_Load", "InsertCV", new { jid = item.jId }, null)
+                    </div>
+                }
+                <br />
+                <br />
+                <div>
+                    @Html.ActionLink("Go Back to Home Page", "UserHome", "LoginDB")
+                </div>
+            }
+        }
+    }
+</div>

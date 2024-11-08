@@ -1,0 +1,85 @@
+﻿@model ProjectMVC.Models.JobSearchCls
+@{
+    ViewBag.Title = "SearchJob_PageLoad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Job Search</h2>
+
+<div>
+    @using (Html.BeginForm("SearchJob_Click", "SearchJob", FormMethod.Post))
+    {
+        <form class="form-horizontal" >
+            <fieldset>
+                <legend>Search</legend>
+                <div class="form-group">
+                    <label>Skills : (Enter more than one skill separated by comma)</label><br />
+                    @Html.TextBoxFor(m => m.obj_jsearch.jSkills) <br />
+                </div>
+                <div class="form-group">
+                    <label>Experience : (Returns result less than or equal to the given value)</label><br />
+                    @Html.TextBoxFor(m => m.obj_jsearch.jExp) <br />
+                </div>
+                <div class="form-group">
+                    <label>Location : </label><br />
+                    @Html.TextBoxFor(m => m.obj_jsearch.jLocation) <br /><br />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Search" /><br />
+                </div>
+
+            </fieldset>
+        </form>
+    }
+    <br />
+</div>
+
+<div>
+    @using (Html.BeginForm("SearchJob_Click", "SearchJob", FormMethod.Get))
+    {
+        if(Model!=null)
+        {
+            if(Model.selectjob!=null && Model.selectjob.Count!=0)
+            {
+                <table border="1">
+                    <tr>
+                        <th>Company</th>
+                        <th>Title</th>
+                        <th>Skills</th>
+                        <th>Location</th>
+                        <th>Date Of Posting</th>
+                        <th>Salary</th>
+                        <th>Experience Required</th>
+                    </tr>
+
+
+                    @foreach (var item in Model.selectjob)
+                    {
+                        <tr>
+
+                            <td>@item.jCompName</td>
+                            <td>@item.jTitle</td>
+                            <td>@item.jSkills</td>
+                            <td>@item.jLocation</td>
+                            <td>@item.jDOP.Date.ToShortDateString()</td>
+                            <td>@item.jSalary</td>
+                            <td>@item.jExp</td>
+
+                            <td>@Html.ActionLink("View Details", "ViewJobDetails_PageLoad", "SearchJob", new { item, jid = item.jId }, null)</td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <script>
+                    alert('No data found');
+                </script>
+            }
+        }
+    }
+    <div>
+        @Html.ActionLink("Go Back to Home Page","UserHome", "LoginDB")
+    </div>
+</div>

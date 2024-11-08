@@ -1,0 +1,29 @@
+﻿@model ProjectMVC.Models.LoginCls
+@{
+    ViewBag.Title = "Login_Pageload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login_Pageload</h2>
+
+<div>
+    @using (Html.BeginForm("Login_Click", "LoginDB", FormMethod.Post))
+    {
+        <div><label>User Name : </label></div>
+        <div>
+            @Html.TextBoxFor(m => m.usrnm)
+            @Html.ValidationMessageFor(m => m.usrnm)
+        </div>
+
+        <div><label>Password : </label></div>
+        <div>
+            @Html.PasswordFor(m => m.pwd)
+            @Html.ValidationMessageFor(m => m.pwd)
+        </div>
+
+        <div>
+            <input type="submit" value="Login" />
+            @Html.DisplayFor(m => m.msg)
+        </div>
+    }
+</div>
